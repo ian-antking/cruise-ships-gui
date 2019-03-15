@@ -1,5 +1,4 @@
 const Port = require('../src/port');
-// const Ship = require('../src/ship');
 
 describe('Port', () => {
   const port = new Port('Calais');
@@ -18,22 +17,24 @@ describe('Port', () => {
 });
 
 describe('adding and removing a ship from the port', () => {
+  let dover;
+  let titanic;
+
+  beforeEach(() => {
+    dover = new Port('Dover');
+    titanic = { name: 'titanic' };
+  });
+
   it('adds a ship to the port', () => {
-    const port = new Port('Dover');
-    const ship = {};
-    port.addShip(ship);
-    expect(port.ships).toContain(ship);
+    dover.addShip(titanic);
+    expect(dover.ships).toContain(titanic);
   });
 
   it('Removes a ship from the port', () => {
-    const port = new Port('Belfast');
-    const titanic = { name: 'titanic' };
     const queenMary = { name: 'Queen Mary' };
-
-    port.addShip(titanic);
-    port.addShip(queenMary);
-    port.removeShip(queenMary);
-
-    expect(port.ships).toEqual([titanic]);
+    dover.addShip(titanic);
+    dover.addShip(queenMary);
+    dover.removeShip(queenMary);
+    expect(dover.ships).toEqual([titanic]);
   });
 });
