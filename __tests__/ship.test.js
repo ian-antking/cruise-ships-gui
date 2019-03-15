@@ -1,12 +1,14 @@
 const Ship = require('../src/ship');
 const Port = require('../src/port');
+const Itinerary = require('../src/itinerary');
 
 describe('Ship', () => {
   // const mockPort = jest.fn();
   // const ship = new Ship(mockPort);
 
   const port = new Port('Liverpool');
-  const ship = new Ship(port);
+  const itinerary = new Itinerary([port]);
+  const ship = new Ship(itinerary);
 
   it('returns an object when instantiated', () => {
     expect(ship).toBeInstanceOf(Object);
@@ -23,46 +25,44 @@ describe('Ship', () => {
 describe('Set sail', () => {
   // const mockPort = jest.fn(); // using a mock to simulate a port
   // const ship = new Ship(mockPort);
-  const port = new Port('Belfast');
-  const ship = new Ship(port);
 
-  // it('sets sail', () => {
-  //   ship.setSail();
-  //   expect(ship.currentPort).toBeFalsy();
-  // });
-  it('sets sail', () => {
+  it('Ship > can set sail', () => {
+    const dover = new Port('Dover');
+    const calais = new Port('Calais');
+    const itinerary = new Itinerary([dover, calais]);
+    const ship = new Ship(itinerary);
+
     ship.setSail();
+    
     expect(ship.currentPort).toBeFalsy();
+    expect(dover.ships).not.toContain(ship);
   });
 });
 
 describe('Dock', () => {
   // const mockPort = jest.fn(); // using a mock to simulate a port
   // const ship = new Ship(mockPort);
-  let port;
+  let dover;
+  let itinerary;
   let ship;
 
   beforeEach(() => {
-    port = new Port('Dover');
-    ship = new Ship(port);
-  });
-
-  it('Docks at a new port', () => {
-    // const newMockPort = jest.fn();
-    // ship.dock(newMockPort);
-    const newPort = new Port('Calais');
-    ship.dock(newPort);
-    expect(ship.currentPort).toBeTruthy();
+    dover = new Port('Dover');
   });
 
   it('Ship > gets added to the port on instantiation', () => {
-    expect(ship.currentPort.ships).toEqual([ship]);
+    itinerary = new Itinerary([dover]);
+    ship = new Ship(itinerary);
+    expect(dover.ships).toContain(ship);
   });
 
   it('Ship > can dock at a different port', () => {
-    const newPort = new Port('Ayr');
-    ship.dock(newPort);
-    expect(ship.currentPort).toEqual(newPort);
-    expect(ship.currentPort.ships).toEqual([ship]);
+    const calais = new Port('Calais');
+    itinerary = new Itinerary([dover, calais]);
+    ship = new Ship(itinerary);
+    ship.setSail();
+    ship.dock();
+    expect(ship.currentPort).toBe(calais);
+    expect(calais.ships).toContain(ship);
   });
 });
