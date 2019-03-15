@@ -22,7 +22,7 @@ describe('adding and removing a ship from the port', () => {
 
   beforeEach(() => {
     dover = new Port('Dover');
-    titanic = { name: 'titanic' };
+    titanic = jest.fn();
   });
 
   it('adds a ship to the port', () => {
@@ -31,7 +31,7 @@ describe('adding and removing a ship from the port', () => {
   });
 
   it('Removes a ship from the port', () => {
-    const queenMary = { name: 'Queen Mary' };
+    const queenMary = jest.fn();
     dover.addShip(titanic);
     dover.addShip(queenMary);
     dover.removeShip(queenMary);
