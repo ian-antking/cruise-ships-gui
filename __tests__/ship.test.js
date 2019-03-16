@@ -1,5 +1,5 @@
 const Ship = require('../src/ship');
-const Port = require('../src/port');
+// const Port = require('../src/port');
 const Itinerary = require('../src/itinerary');
 
 describe('Ship', () => {
@@ -10,9 +10,24 @@ describe('Ship', () => {
     let ship;
 
     beforeEach(() => {
-      dover = new Port('Dover');
-      calais = new Port('Calais');
-      itinerary = new Itinerary([dover, calais]);
+      // dover = new Port('Dover');
+      const port = {
+        removeShip: jest.fn(),
+        addShip: jest.fn(),
+      };
+      dover = {
+        ...port,
+        name: 'Dover',
+      };
+      // calais = new Port('Calais');
+      calais = {
+        ...port,
+        name: 'Calais',
+      };
+      // itinerary = new Itinerary([dover, calais]);
+      itinerary = {
+        ports: [dover, calais],
+      };
       ship = new Ship(itinerary);
     });
 
@@ -25,20 +40,23 @@ describe('Ship', () => {
     });
 
     it('Ship > gets added to the port on instantiation', () => {
-      expect(dover.ships).toContain(ship);
+      // expect(dover.ships).toContain(ship);
+      expect(dover.addShip).toHaveBeenCalledWith(ship); // using a spy
     });
 
     it('Ship > can set sail', () => {
       ship.setSail();
       expect(ship.currentPort).toBeFalsy();
-      expect(dover.ships).not.toContain(ship);
+      expect(dover.removeShip).toHaveBeenCalledWith(ship); // using a spy
+      // expect(dover.ships).not.toContain(ship);
     });
 
     it('Ship > can dock at a different port', () => {
       ship.setSail();
       ship.dock();
       expect(ship.currentPort).toEqual(calais);
-      expect(calais.ships).toContain(ship);
+      expect(calais.addShip).toHaveBeenCalledWith(ship); // using a spy
+      // expect(calais.ships).toContain(ship);
     });
   });
 });

@@ -1,8 +1,8 @@
 const Itinerary = require('../src/itinerary');
 
 describe('itinerary', () => {
-  const dover = jest.fn();
-  const calais = jest.fn();
+  const dover = jest.fn(); // mock
+  const calais = jest.fn(); // mock
   const ports = [dover, calais];
   const itinerary = new Itinerary(ports);
 
