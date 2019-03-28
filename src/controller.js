@@ -9,7 +9,7 @@ class Controller {
       './images/water1.png',
     ];
     let backgroundIndex = 0;
-    
+     
     window.setInterval(() => {
       document.querySelector('#viewport').style.backgroundImage = `url('${backgrounds[backgroundIndex % backgrounds.length]}')`;
       backgroundIndex += 1;
