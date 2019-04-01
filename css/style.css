@@ -25,7 +25,14 @@ body {
 }
 
 #ports > .port {
-  width: 64px;
   height: 32px;
+  width: 64px;
   background-image: url(../images/port.png);
+}
+
+#ship {
+  height: 64px;
+  width: 128px;
+  position: absolute;
+  background-image: url(../images/ship.png);
 }

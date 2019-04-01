@@ -28,4 +28,16 @@ class Controller {
       portsElement.style.width = `${portsElementWidth + 256}px`;
     });
   }
+
+  renderShip(ship) {
+    const port = ship.currentPort;
+    const portIndex = ship.itinerary.ports.indexOf(port);
+    const portElement = document.querySelector(`.port[data-port-index = "${portIndex}"]`);
+    const portOffsetLeft = portElement.offsetLeft;
+    const portWidth = portElement.offsetWidth;
+    const shipElement = document.querySelector('#ship');
+    const shipWidth = shipElement.offsetWidth;
+    const shipPosition = portOffsetLeft - (shipWidth - portWidth) / 2;
+    shipElement.style.left = `${shipPosition}px`;
+  }
 }
