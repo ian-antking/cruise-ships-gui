@@ -1,6 +1,10 @@
 class Controller {
-  constructor() {
+  constructor(ship) {
     this.initialiseSea();
+    this.ship = ship;
+    document.querySelector('#sailbutton').addEventListener('click', () => {
+      this.setSail();
+    });
   }
 
   initialiseSea() {
@@ -29,15 +33,33 @@ class Controller {
     });
   }
 
-  renderShip(ship) {
-    const port = ship.currentPort;
-    const portIndex = ship.itinerary.ports.indexOf(port);
-    const portElement = document.querySelector(`.port[data-port-index = "${portIndex}"]`);
-    const portOffsetLeft = portElement.offsetLeft;
-    const portWidth = portElement.offsetWidth;
+  renderShip() {
+    const ship = this.ship;
+    const portIndex = ship.itinerary.ports.indexOf(ship.currentPort);
+    const portElement = document.querySelector(`[data-port-index = "${portIndex}"]`);
     const shipElement = document.querySelector('#ship');
-    const shipWidth = shipElement.offsetWidth;
-    const shipPosition = portOffsetLeft - (shipWidth - portWidth) / 2;
-    shipElement.style.left = `${shipPosition}px`;
+    shipElement.style.top = `${portElement.offsetTop + 32}px`;
+    shipElement.style.left = `${portElement.offsetLeft - 32}px`;
+  }
+
+  setSail() {
+    const ship = this.ship;
+    const portIndex = ship.itinerary.ports.indexOf(ship.currentPort) + 1;
+    const portElement = document.querySelector(`[data-port-index = "${portIndex}"]`);
+    if (!portElement) {
+      return alert('End of the line!');
+    }
+    const portPosition = portElement.offsetLeft;
+    const shipElement = document.querySelector('#ship');
+    let shipPosition = shipElement.offsetLeft;
+    ship.setSail();
+    const sailing = setInterval(() => {
+      if (shipPosition === portPosition - 32) {
+        clearInterval(sailing);
+      }
+      shipElement.style.left = `${shipPosition + 1}px`;
+      shipPosition += 1;
+    }, 10);
+    ship.dock();
   }
 }
