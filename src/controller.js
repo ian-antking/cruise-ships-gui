@@ -53,6 +53,8 @@ class Controller {
     const shipElement = document.querySelector('#ship');
     let shipPosition = shipElement.offsetLeft;
     ship.setSail();
+    let message = `Now departing ${ship.previousPort.name}`;
+    this.renderMessage(message);
     const sailing = setInterval(() => {
       if (shipPosition === portPosition - 32) {
         clearInterval(sailing);
@@ -61,5 +63,17 @@ class Controller {
       shipPosition += 1;
     }, 10);
     ship.dock();
+    message = `Now docking at ${ship.currentPort.name}`;
+    this.renderMessage(message);
+  }
+
+  renderMessage(message) {
+    const newMessageElement = document.createElement('div');
+    newMessageElement.id = 'message';
+    newMessageElement.innerHTML = message;
+    document.querySelector('#viewport').appendChild(newMessageElement);
+    window.setTimeout(() => {
+      document.querySelector('#viewport').removeChild(newMessageElement);
+    }, 2000);
   }
 }
