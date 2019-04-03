@@ -9,6 +9,16 @@ body {
   background-color: black;
 }
 
+#display {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  right: 0;
+  top: 0;
+  color: white;
+  font-family: 'Press Start 2P', cursive;
+}
+
 #viewport {
   height: 256px;
   width: 640px;
@@ -38,27 +48,38 @@ body {
 }
 
 #sailbutton {
-  font-family: 'Press Start 2P', cursive;
-  height: 15%;
-  width: 100%;
-  position: absolute;
-  bottom: 0;
-  /* position: sticky;
-  left: 0; */
-  background-color: red;
+  border: 0;
+  background-color: #fb3640;
+  border-bottom: 4px solid #d8040f;
   color: white;
-  font-size: 1em;
+  font-family: 'Press Start 2P', cursive;
+  padding: 10px 20px;
+  position: sticky;
+  top: 250px;
+  bottom: 0;
+  left: 0;
+  width: 100%
+}
+
+#sailbutton:focus {
+  background-color: #d8040f;
+  border-bottom-width: 0;
+  padding-top: 14px;
 }
 
 #message {
   font-family: 'Press Start 2P', cursive;
-  height: 15%;
   width: 100%;
-  position: absolute;
-  bottom: 0;
-  /* position: sticky;
-  left: 0; */
+  height: 18%;
+  position: sticky;
+  left: 0;
+  top: 250px;
   background-color: white;
   color: black;
   font-size: 1em;
+  display: flex;
+  align-items: center;
+  padding-left: 30px;
+  bottom: 0;
+  border-top: 3px solid black;
 }
