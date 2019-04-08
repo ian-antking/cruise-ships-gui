@@ -6,13 +6,13 @@
       this.previousPort = null;
       this.currentPort.addShip(this);
     }
-    
+
     setSail() {
       this.previousPort = this.currentPort;
       this.currentPort = '';
       this.previousPort.removeShip(this);
     }
-    
+
     dock() {
       const itinerary = this.itinerary;
       const portIndex = itinerary.ports.indexOf(this.previousPort);
