@@ -1,4 +1,6 @@
 // Please remember to follow the track from a dev branch. It makes giving feedback a lot easier.
+// Because the controller is never used in the node environment, I'm not sure you need to wrap it in an IIFE.
+// Doesn't break anything in this instance though.
 (function exportController() {
   class Controller {
     constructor(ship) {
@@ -31,6 +33,7 @@
         newPortElement.dataset.portIndex = index;
         newPortElement.dataset.portName = port.name;
         portsElement.appendChild(newPortElement);
+        // Try to keep your variables declared as far up the block as you can.
         const portsElementWidth = parseInt(portsElement.style.width, 10);
         portsElement.style.width = `${portsElementWidth + 256}px`;
       });
